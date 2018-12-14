@@ -1,5 +1,6 @@
 package com.zzjmay.dubbo.consumer.service;
 
+import com.zzjmay.dubbo.api.domain.OrderInfo;
 import com.zzjmay.dubbo.api.domain.UserAdress;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface OrderService {
 
 
     List<UserAdress> queryUserInfo(String userId);
+
+    List<OrderInfo> queryOrderInfo(String orderId);
 }

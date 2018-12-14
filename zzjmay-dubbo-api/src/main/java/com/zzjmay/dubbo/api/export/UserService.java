@@ -1,5 +1,6 @@
 package com.zzjmay.dubbo.api.export;
 
+import com.zzjmay.dubbo.api.domain.OrderInfo;
 import com.zzjmay.dubbo.api.domain.UserAdress;
 
 import java.util.List;
@@ -15,4 +16,11 @@ public interface UserService {
      * @return
      */
     List<UserAdress> queryUserAdress(String userId);
+
+    /**
+     * 查询订单信息
+     * @param orderId
+     * @return
+     */
+    List<OrderInfo> queryOrderInfo(String orderId);
 }

@@ -1,5 +1,6 @@
 package com.zzjmay.dubbo.consumer.controller;
 
+import com.zzjmay.dubbo.api.domain.OrderInfo;
 import com.zzjmay.dubbo.api.domain.UserAdress;
 import com.zzjmay.dubbo.consumer.service.OrderService;
 import org.springframework.stereotype.Controller;
@@ -27,5 +28,12 @@ public class OrderController {
     public List<UserAdress> querUserInfo(@RequestBody String userId){
 
         return orderService.queryUserInfo(userId);
+    }
+
+    @ResponseBody
+    @RequestMapping("/queryorderInfo")
+    public List<OrderInfo> querOrderInfo(@RequestBody String userId){
+
+        return orderService.queryOrderInfo(userId);
     }
 }
