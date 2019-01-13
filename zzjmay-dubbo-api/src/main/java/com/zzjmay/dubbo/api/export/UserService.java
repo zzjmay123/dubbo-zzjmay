@@ -23,4 +23,7 @@ public interface UserService {
      * @return
      */
     List<OrderInfo> queryOrderInfo(String orderId);
+
+
+    boolean insertUserAddress(UserAdress userAdress);
 }

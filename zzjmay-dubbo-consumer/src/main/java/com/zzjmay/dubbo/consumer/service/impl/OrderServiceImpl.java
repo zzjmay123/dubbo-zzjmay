@@ -34,5 +34,10 @@ public class OrderServiceImpl implements OrderService {
         return userService.queryOrderInfo(orderId);
     }
 
+    @Override
+    public boolean insert(UserAdress userAdress) {
+        return userService.insertUserAddress(userAdress);
+    }
+
 
 }

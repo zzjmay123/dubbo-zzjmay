@@ -49,4 +49,13 @@ public class UserAdress implements Serializable {
     public void setAdress(String adress) {
         this.adress = adress;
     }
+
+    @Override
+    public String toString() {
+        return "UserAdress{" +
+                "consignee='" + consignee + '\'' +
+                ", phone='" + phone + '\'' +
+                ", adress='" + adress + '\'' +
+                '}';
+    }
 }

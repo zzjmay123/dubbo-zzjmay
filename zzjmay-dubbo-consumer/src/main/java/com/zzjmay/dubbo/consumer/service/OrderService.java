@@ -14,4 +14,6 @@ public interface OrderService {
     List<UserAdress> queryUserInfo(String userId);
 
     List<OrderInfo> queryOrderInfo(String orderId);
+
+    boolean insert(UserAdress userAdress);
 }

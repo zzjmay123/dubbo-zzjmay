@@ -25,15 +25,21 @@ public class OrderController {
 
     @ResponseBody
     @RequestMapping("/queryUserInfo")
-    public List<UserAdress> querUserInfo(@RequestBody String userId){
+    public List<UserAdress> querUserInfo(@RequestBody UserAdress userAdress){
 
-        return orderService.queryUserInfo(userId);
+        return orderService.queryUserInfo(userAdress.getConsignee());
     }
 
     @ResponseBody
     @RequestMapping("/queryorderInfo")
-    public List<OrderInfo> querOrderInfo(@RequestBody String userId){
+    public List<OrderInfo> querOrderInfo(@RequestBody OrderInfo orderInfo){
 
-        return orderService.queryOrderInfo(userId);
+        return orderService.queryOrderInfo(orderInfo.getOrderId());
+    }
+
+    @ResponseBody
+    @RequestMapping("/insertUserAdress")
+    public boolean insertUserAdress(@RequestBody UserAdress userAdress){
+        return orderService.insert(userAdress);
     }
 }
