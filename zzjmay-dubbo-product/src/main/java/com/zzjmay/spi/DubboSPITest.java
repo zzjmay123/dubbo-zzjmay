@@ -1,5 +1,6 @@
 package com.zzjmay.spi;
 
+import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
 
 /**
@@ -10,9 +11,13 @@ public class DubboSPITest {
     public static void main(String[] args) {
         ExtensionLoader<Robot> extensionLoader = ExtensionLoader.getExtensionLoader(Robot.class);
 
-        Robot herryRobot = extensionLoader.getExtension("herry");
+        //测试Adaptive场景，因为Dubbo采用的URL总线设计，所以通过url上的参数指定对应的实现类
 
-        herryRobot.sayHello();
+        URL url = URL.valueOf("test://localhost/test?test=jony");
+
+        Robot herryRobot = extensionLoader.getAdaptiveExtension();
+
+        herryRobot.sayHello(url);
 
     }
 }

@@ -1,5 +1,6 @@
 package com.zzjmay.spi.impl;
 
+import com.alibaba.dubbo.common.URL;
 import com.zzjmay.spi.Robot;
 
 /**
@@ -7,7 +8,7 @@ import com.zzjmay.spi.Robot;
  */
 public class JonyRobotImpl implements Robot {
     @Override
-    public void sayHello() {
+    public void sayHello(URL url) {
 
         System.out.println("Hello every ,I am JonyRobot");
 
