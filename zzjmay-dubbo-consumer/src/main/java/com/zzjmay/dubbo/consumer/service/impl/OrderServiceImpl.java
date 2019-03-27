@@ -3,6 +3,7 @@ package com.zzjmay.dubbo.consumer.service.impl;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.zzjmay.dubbo.api.domain.OrderInfo;
 import com.zzjmay.dubbo.api.domain.UserAdress;
+import com.zzjmay.dubbo.api.export.OrderInfoService;
 import com.zzjmay.dubbo.api.export.UserService;
 import com.zzjmay.dubbo.consumer.service.OrderService;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     UserService userService;
 
+    @Resource
+    OrderInfoService orderInfoService;
+
 
     @Override
     public List<UserAdress> queryUserInfo(String userId) {
@@ -31,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderInfo> queryOrderInfo(String orderId) {
-        return userService.queryOrderInfo(orderId);
+        return orderInfoService.queryOrderInfo(orderId);
     }
 
     @Override

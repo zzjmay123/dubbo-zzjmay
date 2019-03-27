@@ -15,4 +15,7 @@
         <dubbo:method name="queryUserAdress" timeout="3000"></dubbo:method>
     </dubbo:reference>
 
+    <dubbo:reference id="orderInfoService" interface="com.zzjmay.dubbo.api.export.OrderInfoService" timeout="5000" >
+    </dubbo:reference>
+
 </beans>
