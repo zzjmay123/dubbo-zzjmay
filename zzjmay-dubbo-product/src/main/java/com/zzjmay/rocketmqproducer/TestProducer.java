@@ -3,9 +3,14 @@ package com.zzjmay.rocketmqproducer;
 
 import com.zzjmay.config.Constants;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.MessageQueueSelector;
+import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.common.message.MessageQueue;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Created by zzjmay on 2019/3/25.
@@ -33,18 +38,30 @@ public class TestProducer {
           //5.构建消息体
           for(int i=0;i<5;i++){
              Message message = new Message
-                     ("test_zzjmay_topic","tagW","key"+i,("1sdd434"+i).getBytes());
+                     ("test_zzjmay_topic","delayMq","key"+i,("delay"+i).getBytes());
 
-             SendResult sendResult = producer.send(message);
+             //同步发送消息
+              //进行延迟消费
+              if (i%2 == 0){
+                message.setDelayTimeLevel(2);
+              }
+              SendResult sendResult = producer.send(message, new MessageQueueSelector() {
+                  @Override
+                  public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
+                    Integer id = (Integer) arg;
+                    int index = id %mqs.size();
+                      return mqs.get(index);
+                  }
+              },3);
+              System.out.println("消息异步发送成功了 "+sendResult);
 
-             System.out.println("消息发出去了:"+sendResult);
+
           }
+
+          producer.shutdown();
 
        }catch (Exception e){
           e.printStackTrace();
-       }finally {
-           //6. 关闭生产者
-          producer.shutdown();
        }
    }
 }

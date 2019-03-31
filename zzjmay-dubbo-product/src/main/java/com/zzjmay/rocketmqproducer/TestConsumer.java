@@ -42,10 +42,6 @@ public class TestConsumer {
                         String key = messageExt.getKeys();
                         String tag = messageExt.getTags();
 
-                        if(key.equals("key1")){
-                            System.out.println("消息消费失败");
-                            int a =1/0;
-                        }
                         String msgBody = new String(messageExt.getBody(),"UTF-8");
 
                         System.out.println("Thread:"+Thread.currentThread().getName()+Thread.currentThread().getId()+",topic:"+topic+",msgbody:"+msgBody);
