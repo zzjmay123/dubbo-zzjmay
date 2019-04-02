@@ -27,9 +27,11 @@ public class TestConsumer {
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         //设置批处理消息,默认的消息是1条
 //       consumer.setConsumeMessageBatchMaxSize(3);
+        consumer.setAllocateMessageQueueStrategy(null);
         try {
             //5.订阅消息
             consumer.subscribe("test_zzjmay_topic", "*");
+
 
             //6.创建监听
             consumer.registerMessageListener(new MessageListenerConcurrently() {

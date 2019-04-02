@@ -18,50 +18,49 @@ import java.util.List;
 public class TestProducer {
 
 
-   /**
-    * 测试默认的发送者
-    */
+    /**
+     * 测试默认的发送者
+     */
     @Test
-   public void testDefaultProducer(){
+    public void testDefaultProducer() {
         //1.创建生产者，指定生产者组
-       DefaultMQProducer producer = new DefaultMQProducer("test_producer_A");
+        DefaultMQProducer producer = new DefaultMQProducer("test_producer_A");
 
-       //2.设置命名中心
-       producer.setNamesrvAddr(Constants.NAMESRV_ADDR);
+        //2.设置命名中心
+        producer.setNamesrvAddr(Constants.NAMESRV_ADDR);
 
-       //3.单台机器 关闭VIP通道
-       producer.setVipChannelEnabled(false);
-       try {
-           //4. 启动生产者
-          producer.start();
+        //3.单台机器 关闭VIP通道
+        producer.setVipChannelEnabled(false);
+        try {
+            //4. 启动生产者
+            producer.start();
 
-          //5.构建消息体
-          for(int i=0;i<5;i++){
-             Message message = new Message
-                     ("test_zzjmay_topic","delayMq","key"+i,("delay"+i).getBytes());
-
-             //同步发送消息
-              //进行延迟消费
-              if (i%2 == 0){
-                message.setDelayTimeLevel(2);
-              }
-              SendResult sendResult = producer.send(message, new MessageQueueSelector() {
-                  @Override
-                  public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
-                    Integer id = (Integer) arg;
-                    int index = id %mqs.size();
-                      return mqs.get(index);
-                  }
-              },3);
-              System.out.println("消息异步发送成功了 "+sendResult);
+            //5.构建消息体
+            for (int i = 0; i < 10; i++) {
 
 
-          }
+                String tag = i % 2 == 0 ? "TagA" : "TagB";
+                Message message = new Message
+                        (Constants.CLUSTER_TOPIC, tag, "key" + i, ("filter" + i).getBytes());
 
-          producer.shutdown();
+                //设置用户自定义属性
+//                message.putUserProperty("useA",String.valueOf(i));
 
-       }catch (Exception e){
-          e.printStackTrace();
-       }
-   }
+                //同步发送消息
+                //进行延迟消费
+//              if (i%2 == 0){
+//                message.setDelayTimeLevel(2);
+//              }
+                SendResult sendResult = producer.send(message);
+                System.out.println("消息异步发送成功了 " + sendResult);
+
+
+            }
+
+            producer.shutdown();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
